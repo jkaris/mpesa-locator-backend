@@ -37,83 +37,83 @@ help:
 
 build:
 	@echo -e "$(BLUE)Building images:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml build
+	@docker compose -f docker-compose.dev.yml build
 
 build-with-no-cache:
 	@echo -e "$(BLUE)Building images with no cache:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml build --no-cache
+	@docker compose -f docker-compose.dev.yml build --no-cache
 
 start-django:
 	@echo -e "$(GREEN)Starting Django backend service:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml up
+	@docker compose -f docker-compose.dev.yml up
 
 start-django-detached:
 	@echo -e "$(GREEN)Starting Django backend service in the background:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml up -d
+	@docker compose -f docker-compose.dev.yml up -d
 
 shell:
 	@echo -e "$(PURPLE)Starting Linux (Bash) shell in Django:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django bash
+	@docker compose -f docker-compose.dev.yml run --rm django bash
 
 django-shell:
 	@echo -e "$(PURPLE)Starting Django-Python shell:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django ./manage.py shell
+	@docker compose -f docker-compose.dev.yml run --rm django ./manage.py shell
 
 stop-django:
 	@echo -e "$(RED)Stopping Django backend service:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml down
+	@docker compose -f docker-compose.dev.yml down
 
 delete-django-volumes:
 	@echo -e "$(RED)Deleting volumes for Django and PostGIS:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml down --volumes
+	@docker compose -f docker-compose.dev.yml down --volumes
 
 makemigrations:
 	@echo -e "$(BLUE)Make Django migrations:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django ./manage.py makemigrations $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django ./manage.py makemigrations $(cmd)
 
 migrate:
 	@echo -e "$(BLUE)Update database schema from Django migrations:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django ./manage.py migrate $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django ./manage.py migrate $(cmd)
 
 create-superuser:
 	@echo -e "$(BLUE)Create superuser for the backend admin:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django ./manage.py createsuperuser $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django ./manage.py createsuperuser $(cmd)
 
 create-test-admin:
 	@echo -e "$(BLUE)Create default backend admin:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django ./manage.py loaddata people/fixtures/geoadmin.json
+	@docker compose -f docker-compose.dev.yml run --rm django ./manage.py loaddata people/fixtures/geoadmin.json
 
 load-gis-data:
 	@echo -e "$(BLUE)Populate DB with GIS data:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django python ./manage.py shell -c "from data import load_locations;load_locations.run()"
+	@docker compose -f docker-compose.dev.yml run --rm django python ./manage.py shell -c "from data import load_locations;load_locations.run()"
 
 test-people:
 	@echo -e "$(YELLOW)Run tests on people Django app:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django python ./manage.py test people $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django python ./manage.py test people $(cmd)
 
 test-locator-api:
 	@echo -e "$(YELLOW)Run tests on locator_api Django app:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django python ./manage.py test locator_api $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django python ./manage.py test locator_api $(cmd)
 
 test-django:
 	@echo -e "$(YELLOW)Run automatic django tests:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django py.test
+	@docker compose -f docker-compose.dev.yml run --rm django py.test
 
 lint-check:
 	@echo -e "$(YELLOW)Run black formatter check:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django black --check . $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django black --check . $(cmd)
 
 lint-fix:
 	@echo -e "$(YELLOW)Lint code with black formatter:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml run --rm django black . $(cmd)
+	@docker compose -f docker-compose.dev.yml run --rm django black . $(cmd)
 
 coverage:
 	@echo -e "$(CYAN)Running automatic code coverage check for Python:$(COFF)"
 
 print-logs:
 	@echo -e "$(YELLOW)Print out logs:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml logs django$(cmd)
+	@docker compose -f docker-compose.dev.yml logs django$(cmd)
 
 print-logs-interactive:
 	@echo -e "$(YELLO)Print out logs:$(COFF)"
-	@docker-compose -f docker-compose.dev.yml logs --follow django $(cmd)
+	@docker compose -f docker-compose.dev.yml logs --follow django $(cmd)
