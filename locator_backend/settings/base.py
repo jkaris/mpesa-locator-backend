@@ -1,6 +1,7 @@
 """
 Base settings for locator_backend project.
 """
+
 import environ
 import dj_database_url
 import os
