@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   postgres-db:
-    image: geonode/postgis:15
+    image: geonode/postgis:15.3-latest
     container_name: db4${COMPOSE_PROJECT_NAME}
     volumes:
       - ./db-init-script:/docker-entrypoint-initdb.d/

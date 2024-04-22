@@ -1,4 +1,4 @@
-FROM python:3.10.12-slim-buster
+FROM python:3.10.14-slim-bullseye
 
 # security-sensitive environments, bytecode files might contain sensitive information from the source code
 # To reduce the risk of accidental exposure of the sensitive information make use of PYTHONDONTWRITEBYTECODE
